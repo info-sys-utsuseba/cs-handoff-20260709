@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>CSbot「人につなぐ」仕組みの現状整理と、すり合わせのお願い</title>
+<style>
+  :root{
+    --paper:#f6f8fa; --card:#ffffff; --ink:#1b2430; --muted:#5c6b7a;
+    --line:#e4e9ef; --line2:#eef2f6;
+    --accent:#1f6f8b;            /* CS / Discord / ルート② */
+    --r1:#c07621;               /* ルート①（お客様が呼ぶ→Slack） */
+    --r1soft:#fbf1e4; --r1line:#eeddc4;
+    --r2:#1f6f8b;               /* ルート②（AIが察する→Discord） */
+    --r2soft:#e8f2f6; --r2line:#cfe3ea;
+    --ok:#1c7a54; --oksoft:#e7f4ee;
+    --warn:#b8760b; --warnsoft:#fbf1df;
+    --crit:#c1442e; --critsoft:#fbeae6;
+    --shadow:0 1px 2px rgba(20,30,45,.06),0 8px 24px rgba(20,30,45,.05);
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#11151a; --card:#1a2029; --ink:#e7edf3; --muted:#9aa7b4;
+      --line:#2a333d; --line2:#222a33;
+      --accent:#54a8c6;
+      --r1:#dc9a4a; --r1soft:#2a2114; --r1line:#3d3018;
+      --r2:#54a8c6; --r2soft:#132630; --r2line:#1d3a46;
+      --ok:#49b98a; --oksoft:#12261e;
+      --warn:#e0a33a; --warnsoft:#2a2213;
+      --crit:#e2725a; --critsoft:#2a1713;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="light"]{
+    --paper:#f6f8fa; --card:#ffffff; --ink:#1b2430; --muted:#5c6b7a;
+    --line:#e4e9ef; --line2:#eef2f6; --accent:#1f6f8b;
+    --r1:#c07621; --r1soft:#fbf1e4; --r1line:#eeddc4;
+    --r2:#1f6f8b; --r2soft:#e8f2f6; --r2line:#cfe3ea;
+    --ok:#1c7a54; --oksoft:#e7f4ee; --warn:#b8760b; --warnsoft:#fbf1df;
+    --crit:#c1442e; --critsoft:#fbeae6;
+  }
+  :root[data-theme="dark"]{
+    --paper:#11151a; --card:#1a2029; --ink:#e7edf3; --muted:#9aa7b4;
+    --line:#2a333d; --line2:#222a33; --accent:#54a8c6;
+    --r1:#dc9a4a; --r1soft:#2a2114; --r1line:#3d3018;
+    --r2:#54a8c6; --r2soft:#132630; --r2line:#1d3a46;
+    --ok:#49b98a; --oksoft:#12261e; --warn:#e0a33a; --warnsoft:#2a2213;
+    --crit:#e2725a; --critsoft:#2a1713;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",Meiryo,system-ui,sans-serif;
+    line-height:1.75; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:940px; margin:0 auto; padding:40px 20px 72px}
+  .eyebrow{font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 8px}
+  h1{font-size:clamp(23px,3.4vw,30px); line-height:1.3; margin:0 0 10px; text-wrap:balance; letter-spacing:.01em}
+  .lede{color:var(--muted); font-size:15px; margin:0 0 4px}
+  .meta{color:var(--muted); font-size:12.5px; margin-top:6px}
+  h2{font-size:19px; margin:0 0 4px; letter-spacing:.01em}
+  .h2sub{color:var(--muted); font-size:13.5px; margin:0 0 18px}
+  section{margin-top:44px}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow)}
+  .pad{padding:22px 24px}
+
+  /* 結論バナー */
+  .hero{border:1px solid var(--line); border-radius:16px; overflow:hidden; box-shadow:var(--shadow); background:
+      linear-gradient(180deg,color-mix(in srgb,var(--accent) 8%,var(--card)),var(--card))}
+  .hero .pad{padding:26px 26px 24px}
+  .hero h1{margin-bottom:12px}
+  .verdicts{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}
+  .v{display:flex; align-items:center; gap:9px; font-size:13.5px; font-weight:600; padding:9px 14px; border-radius:10px; border:1px solid var(--line)}
+  .v.ok{background:var(--oksoft); border-color:color-mix(in srgb,var(--ok) 32%,transparent); color:var(--ok)}
+  .v.warn{background:var(--warnsoft); border-color:color-mix(in srgb,var(--warn) 32%,transparent); color:var(--warn)}
+  .dot{width:9px;height:9px;border-radius:50%;background:currentColor;flex:none}
+
+  /* 安心セクション */
+  .safe{border-left:4px solid var(--ok); background:var(--oksoft)}
+  .safe .pad{padding:18px 22px}
+  .safe b{color:var(--ok)}
+
+  /* 2ルート対比 */
+  .routes{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+  @media(max-width:720px){.routes{grid-template-columns:1fr}}
+  .route{border-radius:14px; border:1px solid var(--line); overflow:hidden; background:var(--card); box-shadow:var(--shadow)}
+  .route.r1{border-top:4px solid var(--r1)}
+  .route.r2{border-top:4px solid var(--r2)}
+  .rhead{padding:16px 20px 12px}
+  .rtag{display:inline-block; font-size:11.5px; font-weight:700; letter-spacing:.06em; padding:3px 10px; border-radius:999px}
+  .r1 .rtag{background:var(--r1soft); color:var(--r1); border:1px solid var(--r1line)}
+  .r2 .rtag{background:var(--r2soft); color:var(--r2); border:1px solid var(--r2line)}
+  .rtitle{font-size:16px; font-weight:700; margin:10px 0 2px}
+  .rwho{font-size:13px; color:var(--muted)}
+  .steps{list-style:none; margin:0; padding:6px 20px 8px}
+  .steps li{position:relative; padding:9px 0 9px 30px; border-top:1px dashed var(--line2); font-size:13.5px}
+  .steps li:first-child{border-top:none}
+  .steps .k{position:absolute; left:0; top:9px; font-size:15px; line-height:1.4}
+  .steps .lab{display:block; font-size:11px; letter-spacing:.06em; color:var(--muted); font-weight:700; text-transform:uppercase; margin-bottom:1px}
+  .dest{margin:2px 20px 18px; padding:11px 14px; border-radius:10px; font-size:13px; font-weight:600; display:flex; align-items:center; gap:8px}
+  .r1 .dest{background:var(--r1soft); color:var(--r1)}
+  .r2 .dest{background:var(--r2soft); color:var(--r2)}
+  .analogy{margin:0 20px 18px; font-size:12.5px; color:var(--muted); font-style:italic; border-left:2px solid var(--line); padding-left:10px}
+
+  /* 食い違い */
+  .gaps{display:flex; flex-direction:column; gap:12px}
+  .gap{display:flex; gap:14px; padding:16px 20px; border:1px solid var(--line); border-left:4px solid var(--warn); border-radius:10px; background:var(--card)}
+  .gap.crit{border-left-color:var(--crit)}
+  .gnum{font-size:13px; font-weight:800; color:var(--warn); flex:none; width:22px}
+  .gap.crit .gnum{color:var(--crit)}
+  .gap b{display:block; margin-bottom:2px; font-size:14.5px}
+  .gap p{margin:0; font-size:13.5px; color:var(--muted)}
+  .contrast{display:inline-flex; gap:6px; flex-wrap:wrap; margin-top:7px}
+  .chip{font-size:12px; font-weight:600; padding:2px 9px; border-radius:6px}
+  .chip.c1{background:var(--r1soft); color:var(--r1)}
+  .chip.c2{background:var(--r2soft); color:var(--r2)}
+
+  /* 決めてほしいこと */
+  .asks{display:flex; flex-direction:column; gap:12px}
+  .ask{border:1px solid var(--line); border-radius:12px; background:var(--card); box-shadow:var(--shadow); padding:18px 22px}
+  .ask .q{font-size:15px; font-weight:700; margin:0 0 4px}
+  .ask .q span{display:inline-block; min-width:26px; height:26px; line-height:26px; text-align:center; border-radius:8px; background:var(--accent); color:#fff; font-size:13px; margin-right:8px}
+  .ask p{margin:2px 0 0 34px; font-size:13.5px; color:var(--muted)}
+
+  .note{margin-top:30px; font-size:12.5px; color:var(--muted); background:var(--line2); border-radius:10px; padding:14px 18px}
+  .note b{color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">CSbot 現状整理レポート</p>
+  <h1>「人につなぐ」仕組みが、いま2つ動いています</h1>
+  <p class="lede">佐藤さんのバグ修正の影響確認と、CSの対応ルートのすり合わせのお願い</p>
+  <p class="meta">作成：佐宗 ／ 2026-07-09 ／ 宛先：片山さん（社内共有用）</p>
+
+  <div class="hero" style="margin-top:22px">
+    <div class="pad">
+      <p class="eyebrow" style="color:var(--accent)">結論（先に要点）</p>
+      <h1 style="font-size:19px;line-height:1.5">佐藤さんのバグ修正はCS側に影響しません。ただし「AIから人へバトンタッチする」仕組みが2つ別々にあり、<u>行き先（誰に・どのアプリ）が違う</u>ので、そこだけ揃えたいです。</h1>
+      <div class="verdicts">
+        <span class="v ok"><span class="dot"></span>佐藤さんの修正 → CSは無傷・止めなくてOK</span>
+        <span class="v warn"><span class="dot"></span>人につなぐルートが2系統・宛先バラバラ → 要すり合わせ</span>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <h2>1. まず安心してほしいこと</h2>
+    <p class="h2sub">「佐藤さんの修正、止めなくて大丈夫？」への回答</p>
+    <div class="card safe">
+      <div class="pad">
+        佐藤さんが今回直したのは <b>ポイントが貯まらない／朝の通知が毎日繰り返す</b> などの<b>学習アプリ側のバグ</b>です。
+        実際にコードを1つずつ突き合わせて確認したところ、<b>私（佐宗）が作っているCSのエスカレ検知・会話の記録には一切触れていません</b>。
+        触っている場所が物理的に別なので、<b>佐藤さんは修正を止める必要はありません</b>。安心して進めていただいて大丈夫です。
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. 「人につなぐ」ルートが、いま2つあります</h2>
+    <p class="h2sub">同じ“AIから人へバトンタッチ”なのに、きっかけも行き先も別々です</p>
+    <div class="routes">
+
+      <div class="route r1">
+        <div class="rhead">
+          <span class="rtag">ルート①</span>
+          <div class="rtitle">お客様が自分で「人を呼んで」と言ったとき</div>
+          <div class="rwho">作った人：佐藤さん</div>
+        </div>
+        <ul class="steps">
+          <li><span class="k">🗣️</span><span class="lab">きっかけ</span>お客様が「担当者と話したい」「人を呼んで」とハッキリ言葉にする</li>
+          <li><span class="k">🤖</span><span class="lab">AIの動き</span>「呼ばれた」と気づき、お客様に「担当者におつなぎします」と返信</li>
+          <li><span class="k">📨</span><span class="lab">通知</span>Slackの「AIシス報告」という部屋へ、会話内容つきで通知が飛ぶ</li>
+        </ul>
+        <div class="dest">📍 行き先：Slack「AIシス報告」→ 大野さん宛て</div>
+        <p class="analogy">たとえ：お客様が受付のベルを鳴らす → 大野さんのデスクのランプが光る</p>
+      </div>
+
+      <div class="route r2">
+        <div class="rhead">
+          <span class="rtag">ルート②</span>
+          <div class="rtitle">お客様は言ってないが、AIが「人が出た方がいい」と察したとき</div>
+          <div class="rwho">作った人：佐宗</div>
+        </div>
+        <ul class="steps">
+          <li><span class="k">👀</span><span class="lab">きっかけ</span>お客様は頼んでいないが、会話を読んだAIが「不満そう／解決してなさそう」と自動判断</li>
+          <li><span class="k">🌙</span><span class="lab">AIの動き</span>毎晩まとめて会話をチェックし、対象を洗い出す</li>
+          <li><span class="k">📨</span><span class="lab">通知</span>会社名・深刻度・根拠つきで通知が飛ぶ</li>
+        </ul>
+        <div class="dest">📍 行き先：Discordのエスカレスレッド → CSチーム（前田さん・前川さん・片山さん）</div>
+        <p class="analogy">たとえ：様子を見ていたAIが「あの人、困ってそう」とCSチームにそっと耳打ちする</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>3. 何が食い違っているか</h2>
+    <p class="h2sub">この2つが別々に走っているため、放置すると「誰が対応するの？」が宙に浮きます</p>
+    <div class="gaps">
+      <div class="gap">
+        <div class="gnum">1</div>
+        <div>
+          <b>行き先のアプリが違う</b>
+          <p>同じ“人につなぐ”なのに通知先が割れています。見落としの原因になります。</p>
+          <span class="contrast"><span class="chip c1">① Slack</span><span class="chip c2">② Discord</span></span>
+        </div>
+      </div>
+      <div class="gap">
+        <div class="gnum">2</div>
+        <div>
+          <b>受け取る人が違う</b>
+          <p>片方は大野さん、もう片方はCSチーム。役割分担が定まっていません。</p>
+          <span class="contrast"><span class="chip c1">① 大野さん</span><span class="chip c2">② CSチーム</span></span>
+        </div>
+      </div>
+      <div class="gap">
+        <div class="gnum">3</div>
+        <div>
+          <b>そもそも大野さんの役割が、私たち（佐宗側）には分かっていません</b>
+          <p>ルート①はSlackの「AIシス報告」宛て。大野さんがCS担当なのか、AIシステム担当なのか、実態が確認できていません。</p>
+        </div>
+      </div>
+      <div class="gap crit">
+        <div class="gnum">4</div>
+        <div>
+          <b>前田さんの想定とズレている可能性</b>
+          <p>前田さんは「エスカレはDiscordに集約してCSが見たい」とのこと。でも佐藤さんが作ったルート①（お客様が人を呼ぶ）はSlackの大野さんに行っています。＝<b>前田さんの想定（CS／Discord）と佐藤さんの想定（大野さん／Slack）が食い違っているかもしれません。</b></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. 決めていただきたいこと</h2>
+    <p class="h2sub">業務フロー（誰がどう対応するか）が決まれば、こちらで仕組みを合わせます</p>
+    <div class="asks">
+      <div class="ask">
+        <p class="q"><span>1</span>お客様が「人を呼んで」と言ったとき、実際に対応するのは？</p>
+        <p>大野さん？　それともCSチーム？　— 業務上の担当を確定させたいです。</p>
+      </div>
+      <div class="ask">
+        <p class="q"><span>2</span>通知先は SlackとDiscord、どちらに寄せますか？</p>
+        <p>バラバラだと見落とすので、片方に統一したいです（技術的にはどちらにも寄せられます）。</p>
+      </div>
+      <div class="ask">
+        <p class="q"><span>3</span>「お客様が明示的に呼ぶ①」と「AIが察する②」は、両方残す想定でいいですか？</p>
+        <p>両方あるのが理想です（気づける機会が増えるため）。ただし行き先は揃えたい、という位置づけです。</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="note">
+    <b>補足：</b>ルート①（大野さん・AIシス報告）は佐藤さん側の作りのため、私たちは「実際に誰がどう対応しているか」の業務実態を把握できていません。上記は<b>コードから読み取った事実</b>をもとにした整理です。実態と違う点があれば教えてください。すり合わせの結果に沿って、通知先の統一はこちらで実装します。
+  </div>
+
+</div>
+</body>
+</html>
