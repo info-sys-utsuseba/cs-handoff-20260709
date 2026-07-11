@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>うつせばAIコンシェルジュ 使い方ガイド</title>
+<meta name="description" content="LINE・ChatworkでうつせばのAIに仕事の相談をする使い方ガイド（お客様向け説明用）">
+<style>
+  :root{
+    --ink:#1d2330; --sub:#5c6676; --line:#e7eaf0; --bg:#f3f5f9; --card:#ffffff;
+    --brand:#4f46e5; --brand-soft:#eef0fe;
+    --line-c:#06c755; --line-soft:#e6f8ee;
+    --cw:#ee5a24; --cw-soft:#fdece6;
+    --ok:#16a34a; --ng:#dc2626; --warn:#d97706;
+    --shadow:0 6px 24px rgba(30,40,70,.07);
+  }
+  @media (prefers-color-scheme:dark){
+    :root{ --ink:#e9ecf3; --sub:#a4adbd; --line:#2a313d; --bg:#0f1218; --card:#181c24;
+      --brand:#8b87ff; --brand-soft:#20223a; --line-soft:#0f2a1c; --cw-soft:#2c1810;
+      --shadow:0 6px 24px rgba(0,0,0,.35); }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.75;
+    font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:960px;margin:0 auto;padding:24px 18px 72px;}
+  .eyebrow{font-size:12px;letter-spacing:.18em;font-weight:800;color:var(--brand);}
+  h1{font-size:30px;line-height:1.3;margin:6px 0 8px;letter-spacing:.01em;text-wrap:balance;}
+  h2{font-size:22px;margin:0 0 4px;display:flex;align-items:center;gap:10px;}
+  .lead{color:var(--sub);font-size:15px;margin:0;}
+  section{margin-top:40px;}
+  .sec-tag{font-size:12px;font-weight:800;letter-spacing:.1em;color:var(--sub);}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);}
+  .hero{background:linear-gradient(135deg,#4f46e5,#7c3aed 60%,#06c755);color:#fff;border-radius:22px;padding:34px 30px;position:relative;overflow:hidden;}
+  .hero .eyebrow{color:#dfe0ff;}
+  .hero h1{color:#fff;margin-top:4px;}
+  .hero p{color:#eef0ff;font-size:15.5px;margin:8px 0 0;max-width:44ch;}
+  .hero .bubbles{position:absolute;right:-30px;top:-30px;width:220px;height:220px;opacity:.25;
+    background:radial-gradient(circle at 30% 30%,#fff 0 8px,transparent 9px),radial-gradient(circle at 70% 60%,#fff 0 6px,transparent 7px);}
+  .pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;}
+  .pill{font-size:12.5px;font-weight:700;background:rgba(255,255,255,.18);color:#fff;padding:5px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.25);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:720px){.grid2{grid-template-columns:1fr}}
+  .step{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px dashed var(--line);}
+  .step:last-child{border-bottom:none}
+  .num{flex:none;width:34px;height:34px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:800;font-size:15px;}
+  .step b{font-size:15.5px}
+  .step p{margin:3px 0 0;font-size:13.5px;color:var(--sub)}
+  .pad{padding:22px 24px}
+  .plat-head{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;padding:16px 20px;border-radius:16px 16px 0 0;color:#fff;}
+  .plat-line{background:var(--line-c)}
+  .plat-cw{background:var(--cw)}
+  .plat-body{padding:16px 20px 20px}
+  .logo{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;background:#fff;font-weight:900;font-size:13px;}
+  .logo.l{color:var(--line-c)} .logo.c{color:var(--cw)}
+  /* チャット再現 */
+  .chat{border-radius:14px;padding:14px;margin-top:6px;font-size:13.5px;}
+  .chat.line{background:var(--line-soft)}
+  .chat.cw{background:var(--cw-soft)}
+  .msg{max-width:80%;padding:9px 13px;border-radius:14px;margin:8px 0;position:relative;line-height:1.55;}
+  .msg.u{background:#fff;border:1px solid var(--line);margin-left:auto;border-bottom-right-radius:4px;}
+  .msg.b{color:#fff;border-bottom-left-radius:4px;}
+  .chat.line .msg.b{background:var(--line-c)}
+  .chat.cw .msg.b{background:var(--cw)}
+  .who{font-size:11px;color:var(--sub);margin:0 4px 2px;}
+  .who.r{text-align:right}
+  .mention{background:rgba(0,0,0,.08);border-radius:5px;padding:0 5px;font-weight:700;}
+  @media (prefers-color-scheme:dark){.msg.u{background:#222834}.mention{background:rgba(255,255,255,.14)}}
+  /* 比較表 */
+  .scroll{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px;}
+  th,td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:center;}
+  th{font-size:12.5px;color:var(--sub);font-weight:800;}
+  td.h{text-align:left;font-weight:700;white-space:nowrap}
+  .yes{color:var(--ok);font-weight:900}
+  .no{color:var(--ng);font-weight:900}
+  .cond{color:var(--warn);font-weight:800;font-size:12.5px}
+  .note{font-size:12.5px;color:var(--sub)}
+  .callout{border-left:5px solid var(--brand);background:var(--brand-soft);border-radius:0 12px 12px 0;padding:14px 18px;margin-top:14px;font-size:14px;}
+  .callout.warn{border-left-color:var(--warn);background:color-mix(in srgb,var(--warn) 12%,var(--card))}
+  .check{display:flex;gap:10px;align-items:flex-start;padding:9px 0;font-size:14px;}
+  .check .b{flex:none;width:22px;height:22px;border-radius:6px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-weight:900;font-size:13px;}
+  .illus{width:100%;border-radius:14px;border:1px solid var(--line);display:block;margin-top:6px;}
+  .foot{margin-top:48px;color:var(--sub);font-size:12.5px;border-top:1px solid var(--line);padding-top:16px;}
+  .kbd{font-family:ui-monospace,Menlo,monospace;background:var(--brand-soft);color:var(--brand);padding:1px 7px;border-radius:6px;font-size:12.5px;font-weight:700;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="bubbles"></div>
+    <div class="eyebrow">うつせば AI コンシェルジュ</div>
+    <h1>いつものチャットのまま、<br>AIに仕事の相談ができます</h1>
+    <p>LINE と Chatwork で、AIコンシェルジュに質問・相談を送るだけ。写真やスクショを見てもらうこともできます。このページはお客様への説明にそのままお使いいただけます。</p>
+    <div class="pills">
+      <span class="pill">📱 LINE</span>
+      <span class="pill">💬 Chatwork</span>
+      <span class="pill">🖼 画像もOK</span>
+      <span class="pill">👥 グループ対応</span>
+    </div>
+  </div>
+  <img class="illus" src="images/ai-guide-hero.jpg" alt="LINEでもChatworkでも、どちらでも同じAIに相談できる様子のイラスト" loading="lazy" style="margin-top:16px">
+  <p class="note" style="text-align:center;margin-top:6px">LINE でも Chatwork でも、話しかけるのは同じ「AIコンシェルジュ」です。</p>
+
+  <!-- 共通の基本 -->
+  <section>
+    <div class="sec-tag">STEP 1 ／ 共通の基本</div>
+    <h2>① まずは「1対1のトーク」で話しかける</h2>
+    <p class="lead">LINE でも Chatwork でも、やり方は同じ。友だち追加した AI と、ふだんの会話のように送るだけです。</p>
+    <div class="grid2" style="margin-top:16px">
+      <div class="card pad">
+        <div class="step"><div class="num">1</div><div><b>AIとの1対1トークを開く</b><p>LINEなら友だち一覧から、Chatworkならダイレクトチャットから。</p></div></div>
+        <div class="step"><div class="num">2</div><div><b>質問・相談をそのまま送る</b><p>「請求書の書き方は？」「この文章を丁寧にして」など、ふつうの言葉でOK。</p></div></div>
+        <div class="step"><div class="num">3</div><div><b>AIが答えを返す</b><p>そのまま会話を続けられます。前の話も覚えています。</p></div></div>
+      </div>
+      <div class="card pad">
+        <div class="who">AIコンシェルジュ・1対1トーク</div>
+        <div class="chat line">
+          <div class="who r">あなた</div>
+          <div class="msg u">経費精算のやり方がわからなくて困ってます🙏</div>
+          <div class="who">AIコンシェルジュ</div>
+          <div class="msg b">お任せください！まず〇〇の画面を開いて…（続けて質問できます）</div>
+        </div>
+        <p class="note" style="margin-top:10px">💡 ポイント：かしこまらなくてOK。困りごとをそのまま送ってください。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 画像 -->
+  <section>
+    <div class="sec-tag">STEP 2 ／ 共通の便利機能</div>
+    <h2>② 写真・スクショを送って見てもらえる 🖼</h2>
+    <p class="lead">エラー画面のスクショ、書類の写真、ホワイトボードのメモなどを送ると、AIが中身を読んで答えます。</p>
+    <div class="callout">
+      <b>1対1トークなら、LINE・Chatworkどちらでも画像OK。</b> 「この画面どうすれば？」とスクショを送るだけ。文章を付けても、画像だけでも大丈夫です。
+    </div>
+  </section>
+
+  <!-- グループ（プラットフォームで違う） -->
+  <section>
+    <div class="sec-tag">STEP 3 ／ ここが違う！グループでの使い方</div>
+    <h2>③ グループでは「AIを呼んでから」話す 👥</h2>
+    <p class="lead">グループでは、AIは勝手に割り込みません。<b>呼ばれたときだけ</b>反応します。呼び方が LINE と Chatwork で少し違います。</p>
+    <img class="illus" src="images/ai-guide-group.jpg" alt="グループでは①AIを呼ぶ→②呼ばれたら答える。全員宛てはNGの図解" loading="lazy" style="margin-top:16px">
+
+    <div class="grid2" style="margin-top:16px">
+      <!-- LINE -->
+      <div class="card">
+        <div class="plat-head plat-line"><span class="logo l">L</span>LINE グループ</div>
+        <div class="plat-body">
+          <div class="step"><div class="num" style="background:var(--line-c)">1</div><div><b>AIを @メンション で呼ぶ</b><p>入力欄で「@」→ AIコンシェルジュ を選ぶ。または文章に <span class="kbd">AIQ</span> と入れて送る。</p></div></div>
+          <div class="step"><div class="num" style="background:var(--line-c)">2</div><div><b>そのまま相談する</b><p>一度呼べば約10分は続けて会話できます。</p></div></div>
+          <div class="chat line" style="margin-top:8px">
+            <div class="msg u"><span class="mention">@AIコンシェルジュ</span> 議事録のテンプレある？</div>
+            <div class="msg b">はい！こちらのテンプレをどうぞ✨（このあと続けて質問OK）</div>
+          </div>
+        </div>
+      </div>
+      <!-- Chatwork -->
+      <div class="card">
+        <div class="plat-head plat-cw"><span class="logo c">C</span>Chatwork グループ</div>
+        <div class="plat-body">
+          <div class="step"><div class="num" style="background:var(--cw)">1</div><div><b>AIに「TO」を付けて呼ぶ</b><p>メッセージにマウスを合わせて「返信」/「TO」で AIコンシェルジュ を指定。または文章に <span class="kbd">AIQ</span> と入れる。</p></div></div>
+          <div class="step"><div class="num" style="background:var(--cw)">2</div><div><b>そのまま相談する</b><p>呼ばれたAIが返信します。</p></div></div>
+          <div class="chat cw" style="margin-top:8px">
+            <div class="msg u"><span class="mention">TO AIコンシェルジュ</span> 見積書の作り方教えて</div>
+            <div class="msg b">承知しました！手順は…（続けて相談できます）</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      ⚠️ <b>「全員宛て（@All / TO ALL）」では反応しません。</b> かならず <b>AIコンシェルジュ本人を指名</b>して呼んでください（他の人への通知でAIが誤作動しないための設計です）。
+    </div>
+  </section>
+
+  <!-- グループ画像の違い -->
+  <section>
+    <div class="sec-tag">STEP 4 ／ グループでの画像は要注意</div>
+    <h2>④ グループで画像を見てもらうには？</h2>
+    <p class="lead">画像の扱いは、グループだと LINE と Chatwork で変わります。ここだけ覚えてください。</p>
+    <div class="card pad scroll" style="margin-top:14px">
+      <table>
+        <thead>
+          <tr><th style="text-align:left">画像を送る場所</th><th><span class="logo l" style="display:inline-grid;vertical-align:middle">L</span> LINE</th><th><span class="logo c" style="display:inline-grid;vertical-align:middle">C</span> Chatwork</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="h">1対1トーク</td><td class="yes">○ そのまま送ればOK</td><td class="yes">○ そのまま送ればOK</td></tr>
+          <tr><td class="h">グループ</td>
+            <td><span class="yes">○</span><br><span class="cond">AIを呼んでから3分以内に画像を送る</span></td>
+            <td><span class="no">✕</span><br><span class="cond">グループでは画像は読めません</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="grid2" style="margin-top:14px">
+      <div class="callout" style="border-left-color:var(--line-c);background:var(--line-soft)">
+        <b>LINEグループで画像を見てほしいとき</b><br>
+        ①まず <span class="mention">@AIコンシェルジュ</span> と呼ぶ → ②<b>3分以内</b>に画像を送る。<br>
+        <span class="note">呼ばずにいきなり画像を送っても反応しません（勝手に反応しない設計）。</span>
+      </div>
+      <div class="callout" style="border-left-color:var(--cw);background:var(--cw-soft)">
+        <b>Chatworkで画像を見てほしいとき</b><br>
+        グループではなく、<b>AIとの1対1トーク（ダイレクトチャット）</b>に画像を送ってください。<br>
+        <span class="note">グループの添付画像はAIが読み取れません。</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 反応しないとき -->
+  <section>
+    <div class="sec-tag">こまったとき</div>
+    <h2>⑤ AIが反応しないな？と思ったら</h2>
+    <div class="card pad" style="margin-top:14px">
+      <div class="check"><div class="b">✓</div><div><b>グループで「AIを呼びましたか？」</b> — @メンション（LINE）／TOで指名（Chatwork）が必要です。全員宛てはNG。</div></div>
+      <div class="check"><div class="b">✓</div><div><b>画像は正しい場所に送っていますか？</b> — Chatworkの画像は1対1トークへ。LINEグループは「呼んでから3分以内」。</div></div>
+      <div class="check"><div class="b">✓</div><div><b>少し時間をおいて再送</b> — 混み合っていると数十秒かかることがあります。</div></div>
+      <div class="check"><div class="b">✓</div><div><b>それでもダメなら担当者へ</b> — 状況（どのトーク・何を送ったか）をお知らせください。</div></div>
+    </div>
+  </section>
+
+  <div class="foot">
+    うつせば AIコンシェルジュ 使い方ガイド ／ お客様説明用。内容は予告なく更新される場合があります。<br>
+    ご不明点は担当者までお気軽にどうぞ。
+  </div>
+
+</div>
+</body>
+</html>
