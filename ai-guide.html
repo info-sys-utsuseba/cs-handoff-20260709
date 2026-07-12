@@ -7,17 +7,18 @@
 <meta name="description" content="LINE・ChatworkでうつせばのAIに仕事の相談をする使い方ガイド（お客様向け説明用）">
 <style>
   :root{
-    --ink:#1d2330; --sub:#5c6676; --line:#e7eaf0; --bg:#f3f5f9; --card:#ffffff;
-    --brand:#4f46e5; --brand-soft:#eef0fe;
-    --line-c:#06c755; --line-soft:#e6f8ee;
-    --cw:#ee5a24; --cw-soft:#fdece6;
-    --ok:#16a34a; --ng:#dc2626; --warn:#d97706;
-    --shadow:0 6px 24px rgba(30,40,70,.07);
+    /* セピア基調＋パステルアクセント（やさしい配色） */
+    --ink:#4a3d2e; --sub:#948573; --line:#e8ddc8; --bg:#f4ecdd; --card:#fffcf5;
+    --brand:#a691cf; --brand-soft:#efe9f8;           /* パステル・ラベンダー（共通アクセント） */
+    --line-c:#7ac79a; --line-soft:#e8f5ec;           /* パステル・グリーン（LINE） */
+    --cw:#e79a6c; --cw-soft:#fbe8db;                 /* パステル・アプリコット（Chatwork） */
+    --ok:#6bb287; --ng:#d99a95; --warn:#d6a866;      /* やわらかいステータス色 */
+    --shadow:0 8px 24px rgba(140,115,75,.12);
   }
   @media (prefers-color-scheme:dark){
-    :root{ --ink:#e9ecf3; --sub:#a4adbd; --line:#2a313d; --bg:#0f1218; --card:#181c24;
-      --brand:#8b87ff; --brand-soft:#20223a; --line-soft:#0f2a1c; --cw-soft:#2c1810;
-      --shadow:0 6px 24px rgba(0,0,0,.35); }
+    :root{ --ink:#efe6d5; --sub:#b6a893; --line:#3b342a; --bg:#221d15; --card:#2b241b;
+      --brand:#c0addf; --brand-soft:#332c3e; --line-soft:#18291d; --cw-soft:#2f2116;
+      --shadow:0 8px 24px rgba(0,0,0,.38); }
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -32,25 +33,32 @@
   section{margin-top:40px;}
   .sec-tag{font-size:12px;font-weight:800;letter-spacing:.1em;color:var(--sub);}
   .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);}
-  .hero{background:linear-gradient(135deg,#4f46e5,#7c3aed 60%,#06c755);color:#fff;border-radius:22px;padding:34px 30px;position:relative;overflow:hidden;}
-  .hero .eyebrow{color:#dfe0ff;}
-  .hero h1{color:#fff;margin-top:4px;}
-  .hero p{color:#eef0ff;font-size:15.5px;margin:8px 0 0;max-width:44ch;}
-  .hero .bubbles{position:absolute;right:-30px;top:-30px;width:220px;height:220px;opacity:.25;
+  .hero{background:linear-gradient(135deg,#ecdcc0 0%,#d8ecdc 52%,#f6ddc7 100%);color:#5a4b38;border:1px solid var(--line);border-radius:22px;padding:34px 30px;position:relative;overflow:hidden;}
+  .hero .eyebrow{color:#a58a5b;}
+  .hero h1{color:#453a2b;margin-top:4px;}
+  .hero p{color:#6f5f49;font-size:15.5px;margin:8px 0 0;max-width:44ch;}
+  .hero .bubbles{position:absolute;right:-30px;top:-30px;width:220px;height:220px;opacity:.35;
     background:radial-gradient(circle at 30% 30%,#fff 0 8px,transparent 9px),radial-gradient(circle at 70% 60%,#fff 0 6px,transparent 7px);}
   .pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;}
-  .pill{font-size:12.5px;font-weight:700;background:rgba(255,255,255,.18);color:#fff;padding:5px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.25);}
+  .pill{font-size:12.5px;font-weight:700;background:rgba(255,255,255,.6);color:#6a5a44;padding:5px 12px;border-radius:999px;border:1px solid rgba(170,150,110,.45);}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
   @media(max-width:720px){.grid2{grid-template-columns:1fr}}
   .step{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px dashed var(--line);}
   .step:last-child{border-bottom:none}
-  .num{flex:none;width:34px;height:34px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:800;font-size:15px;}
+  .num{flex:none;width:34px;height:34px;border-radius:50%;background:var(--brand);color:#41341f;display:grid;place-items:center;font-weight:800;font-size:15px;}
   .step b{font-size:15.5px}
   .step p{margin:3px 0 0;font-size:13.5px;color:var(--sub)}
   .pad{padding:22px 24px}
   .plat-head{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;padding:16px 20px;border-radius:16px 16px 0 0;color:#fff;}
   .plat-line{background:var(--line-c)}
   .plat-cw{background:var(--cw)}
+  /* グループ2カラム比較 */
+  .platcard{overflow:hidden;display:flex;flex-direction:column}
+  .gcompare .plat-head{color:#453722}
+  .gcompare .plat-body{padding:14px 16px 16px}
+  .gcompare .step{padding:11px 0}
+  .gcompare .step b{font-size:14.5px}
+  .gcompare .illus{margin-top:0}
   .plat-body{padding:16px 20px 20px}
   .logo{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;background:#fff;font-weight:900;font-size:13px;}
   .logo.l{color:var(--line-c)} .logo.c{color:var(--cw)}
@@ -60,13 +68,13 @@
   .chat.cw{background:var(--cw-soft)}
   .msg{max-width:80%;padding:9px 13px;border-radius:14px;margin:8px 0;position:relative;line-height:1.55;}
   .msg.u{background:#fff;border:1px solid var(--line);margin-left:auto;border-bottom-right-radius:4px;}
-  .msg.b{color:#fff;border-bottom-left-radius:4px;}
+  .msg.b{color:#40331e;border-bottom-left-radius:4px;}
   .chat.line .msg.b{background:var(--line-c)}
   .chat.cw .msg.b{background:var(--cw)}
   .who{font-size:11px;color:var(--sub);margin:0 4px 2px;}
   .who.r{text-align:right}
   .mention{background:rgba(0,0,0,.08);border-radius:5px;padding:0 5px;font-weight:700;}
-  @media (prefers-color-scheme:dark){.msg.u{background:#222834}.mention{background:rgba(255,255,255,.14)}}
+  @media (prefers-color-scheme:dark){.msg.u{background:#352d22;border-color:#463c2d}.mention{background:rgba(255,255,255,.14)}}
   /* 比較表 */
   .scroll{overflow-x:auto}
   table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px;}
@@ -83,7 +91,8 @@
   .check .b{flex:none;width:22px;height:22px;border-radius:6px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-weight:900;font-size:13px;}
   .illus{width:100%;border-radius:14px;border:1px solid var(--line);display:block;margin-top:6px;}
   .foot{margin-top:48px;color:var(--sub);font-size:12.5px;border-top:1px solid var(--line);padding-top:16px;}
-  .kbd{font-family:ui-monospace,Menlo,monospace;background:var(--brand-soft);color:var(--brand);padding:1px 7px;border-radius:6px;font-size:12.5px;font-weight:700;}
+  .kbd{font-family:ui-monospace,Menlo,monospace;background:var(--brand-soft);color:#5b4c86;padding:1px 7px;border-radius:6px;font-size:12.5px;font-weight:700;}
+  @media (prefers-color-scheme:dark){.kbd{color:#cfc0ef}}
 </style>
 </head>
 <body>
@@ -150,43 +159,44 @@
     </div>
   </section>
 
-  <!-- LINE グループ 詳細 -->
+  <!-- グループ 2カラム比較（LINE ／ Chatwork） -->
   <section>
-    <div class="sec-tag" style="color:var(--line-c)">LINE グループの使い方</div>
-    <h2><span class="logo l" style="display:inline-grid">L</span> LINE グループ</h2>
-    <div class="card" style="margin-top:14px;border-top:4px solid var(--line-c)">
-      <div class="plat-body">
-        <div class="step"><div class="num" style="background:var(--line-c)">1</div><div><b>AIを @メンション で呼ぶ</b><p>入力欄で「@」→「AIコンシェルジュ」を選ぶ。または文章に <span class="kbd">AIQ</span> と入れて送る。</p></div></div>
-        <div class="step"><div class="num" style="background:var(--line-c)">2</div><div><b>そのまま相談する</b><p>一度呼べば、続けて会話できます。</p></div></div>
-        <div class="step"><div class="num" style="background:var(--line-c)">3</div><div><b>画像は「呼んでから3分以内」に送る 🖼</b><p>先に @メンション（または <span class="kbd">AIQ</span>）で呼び、<b>3分以内</b>に写真・スクショを送ってください。LINEは画像に宛先を付けられないため、この順番が必要です。</p></div></div>
-        <div class="chat line" style="margin-top:8px">
-          <div class="msg u"><span class="mention">@AIコンシェルジュ</span> この画面どうすれば？</div>
-          <div class="msg u">🖼 （3分以内に画像を送信）</div>
-          <div class="msg b">拝見しました！この画面では〇〇を押せばOKです✨</div>
-        </div>
-      </div>
-    </div>
-    <img class="illus" src="images/ai-guide-line-group.jpg" alt="LINEグループ：①AIを呼ぶ→②3分以内に画像を送る図解" loading="lazy" style="margin-top:14px">
-  </section>
+    <div class="sec-tag">LINE と Chatwork の使い方（見比べ）</div>
+    <h2>グループでの「呼び方」と「画像」の違い</h2>
+    <p class="lead">左が LINE、右が Chatwork。並べて見比べられます。呼び方も、画像の送り方も、少しだけ違います。</p>
+    <div class="grid2 gcompare" style="margin-top:16px">
 
-  <!-- Chatwork グループ 詳細 -->
-  <section>
-    <div class="sec-tag" style="color:var(--cw)">Chatwork グループの使い方</div>
-    <h2><span class="logo c" style="display:inline-grid">C</span> Chatwork グループ</h2>
-    <div class="card" style="margin-top:14px;border-top:4px solid var(--cw)">
-      <div class="plat-body">
-        <div class="step"><div class="num" style="background:var(--cw)">1</div><div><b>AIに「TO」を付けて呼ぶ</b><p>メッセージにマウスを合わせて「返信」/「TO」で「AIコンシェルジュ」を指定。または文章に <span class="kbd">AIQ</span> と入れる。</p></div></div>
-        <div class="step"><div class="num" style="background:var(--cw)">2</div><div><b>そのまま相談する</b><p>指名されたAIが返信します。</p></div></div>
-        <div class="step"><div class="num" style="background:var(--cw)">3</div><div><b>画像は「TO＋画像」を1通で送るだけ 🖼</b><p>Chatworkは1つのメッセージに宛先(TO)と画像を一緒に付けられます。<b>AIをTOで指名しながら画像を添付</b>して送れば、その場で読み取ります（LINEのようなタイマーは不要）。</p></div></div>
-        <div class="chat cw" style="margin-top:8px">
-          <div class="msg u"><span class="mention">TO AIコンシェルジュ</span> これ何のエラー？<br>🖼 （同じメッセージに画像を添付）</div>
-          <div class="msg b">確認しました！これは〇〇のエラーです。対処は…</div>
+      <!-- LINE 列 -->
+      <div class="card platcard">
+        <div class="plat-head plat-line"><span class="logo l">L</span>LINE グループ</div>
+        <div class="plat-body">
+          <img class="illus" src="images/ai-guide-line-group.jpg" alt="LINEグループ：①AIを呼ぶ→②3分以内に画像を送る図解" loading="lazy" style="margin:2px 0 14px">
+          <div class="step"><div class="num" style="background:var(--line-c)">1</div><div><b>AIを @メンション で呼ぶ</b><p>入力欄で「@」→「AIコンシェルジュ」を選ぶ。または文章に <span class="kbd">AIQ</span> と入れて送る。</p></div></div>
+          <div class="step"><div class="num" style="background:var(--line-c)">2</div><div><b>そのまま相談する</b><p>一度呼べば、続けて会話できます。</p></div></div>
+          <div class="step"><div class="num" style="background:var(--line-c)">3</div><div><b>画像は「呼んでから3分以内」に 🖼</b><p>先に @メンション（または <span class="kbd">AIQ</span>）で呼び、<b>3分以内</b>に写真・スクショを送る。LINEは画像に宛先を付けられないため、この順番が必要です。</p></div></div>
+          <div class="chat line" style="margin-top:6px">
+            <div class="msg u"><span class="mention">@AIコンシェルジュ</span> この画面どうすれば？</div>
+            <div class="msg u">🖼 （3分以内に画像を送信）</div>
+            <div class="msg b">拝見しました！〇〇を押せばOKです✨</div>
+          </div>
         </div>
       </div>
-    </div>
-    <img class="illus" src="images/ai-guide-chatwork-group.jpg" alt="Chatworkグループ：TOで指名＋画像を1通で送る図解" loading="lazy" style="margin-top:14px">
-    <div class="callout" style="border-left-color:var(--cw);background:var(--cw-soft)">
-      💡 <b>ポイント：</b>Chatworkはグループでも、<b>TOでAIを指名した1通</b>なら画像を読めます。指名のない画像には反応しません（誤反応・情報の取り違え防止）。
+
+      <!-- Chatwork 列 -->
+      <div class="card platcard">
+        <div class="plat-head plat-cw"><span class="logo c">C</span>Chatwork グループ</div>
+        <div class="plat-body">
+          <img class="illus" src="images/ai-guide-chatwork-group.jpg" alt="Chatworkグループ：TOで指名＋画像を1通で送る図解" loading="lazy" style="margin:2px 0 14px">
+          <div class="step"><div class="num" style="background:var(--cw)">1</div><div><b>AIに「TO」を付けて呼ぶ</b><p>メッセージにマウスを合わせて「返信」/「TO」で「AIコンシェルジュ」を指定。または文章に <span class="kbd">AIQ</span> と入れる。</p></div></div>
+          <div class="step"><div class="num" style="background:var(--cw)">2</div><div><b>そのまま相談する</b><p>指名されたAIが返信します。</p></div></div>
+          <div class="step"><div class="num" style="background:var(--cw)">3</div><div><b>画像は「TO＋画像」を1通で 🖼</b><p>Chatworkは1通に宛先(TO)と画像を一緒に付けられます。<b>AIをTOで指名しながら画像を添付</b>して送ればその場で読み取り（タイマー不要）。</p></div></div>
+          <div class="chat cw" style="margin-top:6px">
+            <div class="msg u"><span class="mention">TO AIコンシェルジュ</span> これ何のエラー？<br>🖼 （同じメッセージに画像を添付）</div>
+            <div class="msg b">確認しました！これは〇〇のエラーです。対処は…</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
