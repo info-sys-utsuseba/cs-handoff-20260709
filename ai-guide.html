@@ -15,11 +15,8 @@
     --ok:#6bb287; --ng:#d99a95; --warn:#d6a866;      /* やわらかいステータス色 */
     --shadow:0 8px 24px rgba(140,115,75,.12);
   }
-  @media (prefers-color-scheme:dark){
-    :root{ --ink:#efe6d5; --sub:#b6a893; --line:#3b342a; --bg:#221d15; --card:#2b241b;
-      --brand:#c0addf; --brand-soft:#332c3e; --line-soft:#18291d; --cw-soft:#2f2116;
-      --shadow:0 8px 24px rgba(0,0,0,.38); }
-  }
+  /* ダークモードでも常に明るくクリーンな見た目に固定（クライアント配布資料のため） */
+  :root{color-scheme:light}
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{margin:0;background:var(--bg);color:var(--ink);line-height:1.75;
@@ -74,7 +71,6 @@
   .who{font-size:11px;color:var(--sub);margin:0 4px 2px;}
   .who.r{text-align:right}
   .mention{background:rgba(0,0,0,.08);border-radius:5px;padding:0 5px;font-weight:700;}
-  @media (prefers-color-scheme:dark){.msg.u{background:#352d22;border-color:#463c2d}.mention{background:rgba(255,255,255,.14)}}
   /* 比較表 */
   .scroll{overflow-x:auto}
   table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px;}
@@ -92,7 +88,6 @@
   .illus{width:100%;border-radius:14px;border:1px solid var(--line);display:block;margin-top:6px;}
   .foot{margin-top:48px;color:var(--sub);font-size:12.5px;border-top:1px solid var(--line);padding-top:16px;}
   .kbd{font-family:ui-monospace,Menlo,monospace;background:var(--brand-soft);color:#5b4c86;padding:1px 7px;border-radius:6px;font-size:12.5px;font-weight:700;}
-  @media (prefers-color-scheme:dark){.kbd{color:#cfc0ef}}
 </style>
 </head>
 <body>
