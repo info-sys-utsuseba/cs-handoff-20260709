@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>会話ログ活用プロジェクト — 行程マップと現在地（2026-07-12）</title>
+<style>
+  :root{--ok:#16a34a;--warn:#d97706;--ng:#dc2626;--info:#2563eb;
+    --ink:#22282f;--sub:#5c6675;--line:#e6e9ef;--bg:#f4f6f9;--card:#fff;
+    --ok-bg:#e9f7ee;--warn-bg:#fbf1e3;--ng-bg:#fbe9e9;--info-bg:#e8f0fd;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Noto Sans JP",sans-serif;line-height:1.8}
+  .wrap{max-width:1000px;margin:0 auto;padding:30px 20px 80px}
+  h1{font-size:23px;margin:0 0 4px}
+  .meta{color:var(--sub);font-size:13px;margin-bottom:20px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin:16px 0}
+  .hero{background:linear-gradient(135deg,#2563eb,#4f46e5);color:#fff;border:none}
+  .hero h2{margin:0 0 8px;font-size:13px;letter-spacing:.14em;opacity:.9}
+  .hero .lead{font-size:18px;font-weight:700;margin:0 0 12px}
+  .hero ul{margin:0;padding-left:20px}.hero li{margin:5px 0}
+  h2.sec{font-size:19px;margin:36px 0 6px;padding-bottom:6px;border-bottom:2px solid var(--line)}
+  .sub{color:var(--sub);font-size:13px;margin:0 0 14px}
+  .roadimg{width:100%;border-radius:12px;border:1px solid var(--line);display:block}
+  .badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 10px;border-radius:20px;white-space:nowrap;vertical-align:2px;margin-left:8px}
+  .b-ok{background:var(--ok-bg);color:var(--ok)}.b-warn{background:var(--warn-bg);color:var(--warn)}
+  .b-ng{background:var(--ng-bg);color:var(--ng)}.b-info{background:var(--info-bg);color:var(--info)}
+  .stage{display:flex;gap:14px;align-items:flex-start;position:relative;padding-bottom:20px}
+  .stage:not(:last-child):before{content:"";position:absolute;left:19px;top:40px;bottom:0;width:2px;background:var(--line)}
+  .snum{flex:0 0 40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:16px}
+  .n-ok{background:var(--ok)}.n-ng{background:var(--ng);box-shadow:0 0 0 4px var(--ng-bg)}.n-gray{background:#9aa3af}
+  .sbody{flex:1;border:1px solid var(--line);border-radius:12px;padding:12px 18px;background:#fff}
+  .sbody.now{border:2px solid var(--ng);background:#fffdfa}
+  .sbody .t{font-weight:700;font-size:15.5px}
+  .sbody ul{margin:6px 0 2px;padding-left:20px;font-size:13.5px;color:var(--sub)}
+  .sbody li{margin:3px 0}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  .scroll{overflow-x:auto}
+  th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:12px;color:var(--sub);font-weight:700}
+  .exts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+  .ext{border:1px solid var(--line);border-radius:12px;padding:12px 16px;background:#fff;border-top:4px solid var(--info)}
+  .ext .t{font-weight:700;font-size:14px}.ext .d{font-size:12.5px;color:var(--sub);margin-top:4px}
+  .note{color:var(--sub);font-size:12px;margin-top:28px;border-top:1px dashed var(--line);padding-top:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>会話ログ活用プロジェクト — 行程マップと現在地</h1>
+  <div class="meta">2026-07-12 作成 ／ うつせば社内共有用 ／ お客様とAIボットの会話記録を「顧客カルテ」と「お客様への成果報告」に活かす取り組み</div>
+
+  <div class="card hero">
+    <h2>結論（先に要点）</h2>
+    <p class="lead">全5ステップのうち、①②が完了。いまは③「現場チェック」の返事待ちで、残りは④カルテへ実装 → ⑤お客様へ成果報告の2つ。</p>
+    <ul>
+      <li><b>①会話を貯める仕組み</b> と <b>②見せ方の設計</b> は完了（①はすでに本番で稼働中）</li>
+      <li><b>③現場チェック（いまここ）</b>：CS現場の視点での最終確認。「OK」の一言で次へ進めます</li>
+      <li>④は開発作業のみ（設計・見本は確定済み）。⑤がゴール＝<b>最終面談でお客様に「良くなった」を数字で見せる</b></li>
+    </ul>
+  </div>
+
+  <img class="roadimg" src="images/kaiwa-log-roadmap.png" alt="行程マップ：①会話を貯める仕組み（完了）→②見せ方の設計（完了）→③現場チェック（いまここ）→④カルテへ実装→⑤お客様へ成果報告（ゴール）">
+
+  <h2 class="sec">各ステップの中身</h2>
+  <p class="sub">緑=完了／赤=いまここ／グレー=これから</p>
+  <div class="card">
+    <div class="stage"><div class="snum n-ok">①</div><div class="sbody">
+      <div class="t">会話を貯める仕組み <span class="badge b-ok">完了・本番稼働中</span></div>
+      <ul>
+        <li>LINE・Chatworkでのお客様とAIボットのやり取りを、<b>漏れなく・安全に</b>記録する土台を整備</li>
+        <li>グループでの会話も、担当者との1対1の会話も記録対象に。誰の発言かが正しく紐づくよう修復済み</li>
+        <li>通信トラブルが起きても記録が消えない「保険つき」の書き込み方式を導入済み</li>
+      </ul>
+    </div></div>
+    <div class="stage"><div class="snum n-ok">②</div><div class="sbody">
+      <div class="t">見せ方の設計 <span class="badge b-ok">完了</span></div>
+      <ul>
+        <li>カルテのゴールを2つに整理：<b>(A) 担当者が「次の一手」を素早く判断できる</b>／<b>(B) お客様に「良くなった」を数字で見せられる</b></li>
+        <li>サポート期間（<b>キックオフから3ヶ月</b>）の実績を1枚にまとめる「<b>成果サマリー</b>」の見本を作成</li>
+        <li>載せる指標（満足度率・解決率・相談件数・エスカレーション・時間削減の金額換算）と見せ方は<b>承認済み</b></li>
+      </ul>
+    </div></div>
+    <div class="stage"><div class="snum n-ng">③</div><div class="sbody now">
+      <div class="t">現場チェック <span class="badge b-ng">いまここ（返事待ち）</span></div>
+      <ul>
+        <li>CS現場の視点で見本を最終確認（担当：前田さん・所要5分ほど）</li>
+        <li>確認ポイントは3つ：<b>載せる情報と並び</b>／<b>最終面談で使う流れ</b>／<b>言葉の違和感</b></li>
+        <li>「このままでOK」or「ここを直したい」の一言で次のステップへ（今週中目標）</li>
+      </ul>
+    </div></div>
+    <div class="stage"><div class="snum n-gray">④</div><div class="sbody">
+      <div class="t">カルテへ実装 <span class="badge b-info">これから（設計は確定済み）</span></div>
+      <ul>
+        <li>顧客カルテに「<b>3ヶ月実績</b>」タブを追加（期間を指定して集計。<b>過去の記録もさかのぼって集計可能</b>）</li>
+        <li>顧客ごとの<b>解決率</b>・<b>エスカレーション件数</b>を新たに表示（いまは全体でしか見られない）</li>
+        <li>お客様に渡せる<b>成果サマリー1枚</b>（印刷・PDF対応）を出力できるように</li>
+      </ul>
+    </div></div>
+    <div class="stage"><div class="snum n-gray">⑤</div><div class="sbody">
+      <div class="t">お客様へ成果報告 <span class="badge b-info">ゴール</span></div>
+      <ul>
+        <li><b>最終面談（キックオフから3ヶ月）</b>で成果サマリーを提示：「削減できた時間と金額」「満足度・解決率の変化」「質問の中身の変化」</li>
+        <li>ご案内資料で以前からお約束している「成果サマリー」が、手作業なしで出せるように</li>
+        <li>そのまま<b>継続・次のご支援のご提案</b>につなげる</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <h2 class="sec">ゴールの先にある発展（任意・別途相談してから）</h2>
+  <div class="card">
+    <div class="exts">
+      <div class="ext"><div class="t">記録の本格スタート</div><div class="d">入金確認できたクライアントから記録をON（まず1〜2社でお試し）</div></div>
+      <div class="ext"><div class="t">同意の取り方ガイド</div><div class="d">担当者向け「お客様への説明の仕方」ガイドを作成（イラストつき）</div></div>
+      <div class="ext"><div class="t">週次の自動集計</div><div class="d">数字が毎週自動でまとまる仕組み。カルテの推移表示が安定</div></div>
+      <div class="ext"><div class="t">ボット改善ループ</div><div class="d">会話記録からAIボットの弱点（answer精度・未解決）を見つけて改善につなげる</div></div>
+    </div>
+  </div>
+
+  <h2 class="sec">次の一手</h2>
+  <div class="card scroll">
+    <table>
+      <thead><tr><th>順</th><th>アクション</th><th>担当</th><th>目安</th></tr></thead>
+      <tbody>
+        <tr><td><b>1</b></td><td>③現場チェックの返信（OK／修正の一言）</td><td>前田さん</td><td>今週中</td></tr>
+        <tr><td><b>2</b></td><td>④カルテへ実装（開発→テスト→本番反映）</td><td>佐宗＋AI</td><td>OK後 数日</td></tr>
+        <tr><td><b>3</b></td><td>記録をスタートする1〜2社の指名（並行で可）</td><td>佐宗さん・前田さん</td><td>並行</td></tr>
+        <tr><td><b>4</b></td><td>⑤最初のお客様への成果報告（最終面談で提示）</td><td>CS担当</td><td>実装後、最初の最終面談から</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="note">作成: 2026-07-12（佐宗＋AI）。本ページ内の画面見本・数字はすべてダミーです。詳細な設計資料・モックは社内フォルダ（projects/会話ログ活用/）にあります。</p>
+</div>
+</body>
+</html>
