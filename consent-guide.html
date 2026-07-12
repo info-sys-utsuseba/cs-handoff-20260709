@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>会話記録「同意の取り方」ガイド（担当者向け）</title>
+<style>
+  :root{
+    --ink:#4a3d2e; --sub:#9c8e7c; --line:#ece4d6; --bg:#fbf8f2; --card:#ffffff;
+    --brand:#a691cf; --brand-soft:#efe9f8;
+    --green:#7ac79a; --green-soft:#e8f5ec;
+    --apricot:#e79a6c; --apricot-soft:#fbe8db;
+    --ok:#6bb287; --ng:#d99a95; --warn:#d6a866;
+    --shadow:0 8px 24px rgba(140,115,75,.12);
+  }
+  :root{color-scheme:light}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.8;
+    font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:920px;margin:0 auto;padding:24px 18px 72px;}
+  .eyebrow{font-size:12px;letter-spacing:.18em;font-weight:800;color:var(--brand);}
+  h1{font-size:28px;line-height:1.35;margin:6px 0 8px;text-wrap:balance;}
+  h2{font-size:21px;margin:0 0 4px;display:flex;align-items:center;gap:10px;}
+  .lead{color:var(--sub);font-size:14.5px;margin:0;}
+  section{margin-top:38px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);}
+  .pad{padding:22px 24px}
+  .hero{background:linear-gradient(135deg,#f5ecdb 0%,#eaf6ee 52%,#fcefe1 100%);border:1px solid var(--line);border-radius:22px;padding:30px 28px;}
+  .hero h1{color:#453a2b;margin-top:4px;}
+  .hero p{color:#6f5f49;font-size:15px;margin:8px 0 0;max-width:46ch;}
+  .heroimg{width:100%;border-radius:16px;border:1px solid var(--line);display:block;margin-top:18px;box-shadow:var(--shadow)}
+  .img{width:100%;border-radius:14px;border:1px solid var(--line);display:block;margin:14px 0 4px}
+  .step{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-bottom:1px dashed var(--line);}
+  .step:last-child{border-bottom:none}
+  .num{flex:none;width:34px;height:34px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:800;font-size:15px;}
+  .step b{font-size:15px}
+  .step p{margin:3px 0 0;font-size:13.5px;color:var(--sub)}
+  .script{background:var(--green-soft);border:1px solid #cfe8d8;border-radius:14px;padding:16px 18px;margin:12px 0;position:relative}
+  .script .tag{position:absolute;top:-11px;left:14px;background:var(--green);color:#fff;font-size:11.5px;font-weight:800;padding:2px 12px;border-radius:999px}
+  .script p{margin:6px 0 0;font-size:14.5px}
+  .script.alt{background:var(--apricot-soft);border-color:#f2d8c4}
+  .script.alt .tag{background:var(--apricot)}
+  .copyhint{font-size:12px;color:var(--sub);margin-top:6px}
+  .qa{border-bottom:1px dashed var(--line);padding:12px 0}
+  .qa:last-child{border-bottom:none}
+  .qa .q{font-weight:800;font-size:14.5px;display:flex;gap:8px}
+  .qa .q:before{content:"Q";flex:none;width:24px;height:24px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-size:13px;font-weight:800}
+  .qa .a{margin:6px 0 0 32px;font-size:13.5px;color:#6f5f49}
+  .ng-list{list-style:none;margin:8px 0 0;padding:0}
+  .ng-list li{display:flex;gap:10px;align-items:flex-start;padding:9px 0;font-size:14px}
+  .ng-list li:before{content:"✕";flex:none;width:24px;height:24px;border-radius:50%;background:#fbeae6;color:var(--ng);display:grid;place-items:center;font-weight:800;font-size:13px}
+  .note-box{background:var(--brand-soft);border-radius:12px;padding:12px 16px;font-size:13.5px;margin-top:14px}
+  .foot{color:var(--sub);font-size:12px;margin-top:44px;border-top:1px dashed var(--line);padding-top:14px}
+  .sec-num{flex:none;width:30px;height:30px;border-radius:10px;background:var(--brand);color:#fff;display:grid;place-items:center;font-size:15px;font-weight:800}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow">UTSUSEBA STAFF GUIDE</div>
+    <h1>会話記録「同意の取り方」ガイド</h1>
+    <p>お客様とのチャットのやり取りを記録させていただく際の、ご説明のしかたガイドです。<b>むずかしく考えなくて大丈夫、ご説明はひとことでOK。</b>そのまま使える台本つきです。</p>
+    <img class="heroimg" src="images/consent-hero.png" alt="スタッフがお客様にひとこと説明し、お客様がOKサインを出しているイラスト">
+  </div>
+
+  <section>
+    <h2><span class="sec-num">1</span>やることは3つだけ</h2>
+    <div class="card pad">
+      <div class="step"><div class="num">1</div><div><b>下の台本を送る（または口頭で伝える）</b><p>キックオフ時、またはサポート開始のタイミングで。グループへの投稿でも、打ち合わせの場で口頭でもOKです。</p></div></div>
+      <div class="step"><div class="num">2</div><div><b>お客様の「OK」を確認する</b><p>「承知しました」「大丈夫です」の一言で十分です。特別な書面は不要です。</p></div></div>
+      <div class="step"><div class="num">3</div><div><b>Discordで管理者に「記録ON」を依頼する</b><p>会社名と「同意OK」を一言。設定はシステム側で行うので、担当者の作業はここまでです。</p></div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">2</span>そのまま使える台本</h2>
+    <p class="lead">基本はお知らせ型でOK。丁寧に確認したい相手には確認型を使ってください（どちらにするかは担当判断でOK）。</p>
+
+    <div class="script">
+      <span class="tag">基本形（グループにそのまま投稿）</span>
+      <p>【お知らせ】サポート品質の向上と、成果のご報告（サポート実績のとりまとめ）のため、本日以降このグループでのやり取りを記録させていただきます。記録は弊社サポートチームのみが確認し、外部に共有することはありません。ご不明点やご懸念があれば、お気軽にお知らせください。</p>
+      <div class="copyhint">※このままコピペで使えます。「このグループ」の部分は 1対1のやり取りなら「本チャット」に置き換えてください。</div>
+    </div>
+
+    <div class="script alt">
+      <span class="tag">確認型（丁寧に聞きたいとき・口頭でも）</span>
+      <p>サポートの品質向上と、のちほど成果をご報告するために、チャットでのやり取りを記録させていただいてもよろしいでしょうか？ 弊社のサポートチームだけが確認するもので、外部に出ることはありません。</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">3</span>聞かれたらこう答える — 3つのポイント</h2>
+    <p class="lead">説明の軸は「何を・何のため・誰が見る」の3つです。</p>
+    <img class="img" src="images/consent-3points.png" alt="何を（会話を記録）・何のため（品質向上と成果報告）・誰が見る（サポートチームのみ）の3ポイント図">
+    <div class="card pad">
+      <div class="qa"><div class="q">何が記録されるのですか？</div><div class="a">サポート用のグループ（または1対1チャット）でのやり取りです。それ以外の場所の情報を集めることはありません。</div></div>
+      <div class="qa"><div class="q">何に使うのですか？</div><div class="a">2つです。①サポートの品質向上（ご質問の傾向を見て案内を改善）②成果のご報告（サポート期間でどれだけ改善したかを、面談で数字でお見せする資料づくり）。営業リストへの転用や外部提供はしません。</div></div>
+      <div class="qa"><div class="q">誰が見られるのですか？</div><div class="a">うつせばのサポートチームのみです。社外に共有されることはありません。</div></div>
+      <div class="qa"><div class="q">記録を断ったらサポートは受けられませんか？</div><div class="a">受けられます。記録の有無とサポートの内容・品質は関係ありません。</div></div>
+      <div class="qa"><div class="q">あとから記録をやめたり、消したりできますか？</div><div class="a">記録の停止はいつでもできます。過去分の扱いについてご要望があった場合は、その場で約束せず「確認して回答します」と持ち帰り、管理者に相談してください。</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">4</span>やってはいけない3つ</h2>
+    <div class="card pad">
+      <ul class="ng-list">
+        <li><div><b>説明せずに記録を始める</b><br><span style="font-size:13px;color:var(--sub)">必ずひとこと伝えてから。順番は「説明 → OK → 記録ON」です。</span></div></li>
+        <li><div><b>不正確な説明をする（「AIが勝手に学習します」など）</b><br><span style="font-size:13px;color:var(--sub)">現時点で行うのは「記録と集計」だけです。AIがお客様との過去の会話を文脈として使う機能が入る際は、改めて丁寧にご案内します（その時はこのガイドを更新します）。</span></div></li>
+        <li><div><b>機密の取り扱いなど特別な要望を、その場で約束する</b><br><span style="font-size:13px;color:var(--sub)">「一部の話題は記録しないで」等の要望は、その場で回答せず持ち帰り、管理者に相談してから返答してください。</span></div></li>
+      </ul>
+      <div class="note-box">💡 迷ったら：<b>無理に進めず、記録はOFFのまま</b>にして管理者（Discord）へ相談してください。記録は「入金確認できたお客様から順にON」の運用です。</div>
+    </div>
+  </section>
+
+  <p class="foot">うつせば社内用（担当者向け）／作成 2026-07-12／本ガイドの内容（説明範囲・Q&A）が実態と変わる場合は管理者が更新します。関連：<a href="ai-guide.html" style="color:var(--brand)">お客様向け AIコンシェルジュ使い方ガイド</a></p>
+</div>
+</body>
+</html>
