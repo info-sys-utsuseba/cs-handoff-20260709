@@ -139,50 +139,62 @@
     </div>
   </section>
 
-  <!-- グループ（プラットフォームで違う） -->
+  <!-- グループ：概念 -->
   <section>
     <div class="sec-tag">STEP 3 ／ ここが違う！グループでの使い方</div>
-    <h2>③ グループでは「AIを呼んでから」話す 👥</h2>
-    <p class="lead">グループでは、AIは勝手に割り込みません。<b>呼ばれたときだけ</b>反応します。呼び方が LINE と Chatwork で少し違います。</p>
+    <h2>③ グループでは「AIを呼んでから」使う 👥</h2>
+    <p class="lead">グループでは、AIは勝手に割り込みません。<b>呼ばれたときだけ</b>反応します。呼び方と画像の送り方が LINE と Chatwork で少し違うので、それぞれ説明します。</p>
     <img class="illus" src="images/ai-guide-group.jpg" alt="グループでは①AIを呼ぶ→②呼ばれたら答える。全員宛てはNGの図解" loading="lazy" style="margin-top:16px">
-
-    <div class="grid2" style="margin-top:16px">
-      <!-- LINE -->
-      <div class="card">
-        <div class="plat-head plat-line"><span class="logo l">L</span>LINE グループ</div>
-        <div class="plat-body">
-          <div class="step"><div class="num" style="background:var(--line-c)">1</div><div><b>AIを @メンション で呼ぶ</b><p>入力欄で「@」→ AIコンシェルジュ を選ぶ。または文章に <span class="kbd">AIQ</span> と入れて送る。</p></div></div>
-          <div class="step"><div class="num" style="background:var(--line-c)">2</div><div><b>そのまま相談する</b><p>一度呼べば約10分は続けて会話できます。</p></div></div>
-          <div class="chat line" style="margin-top:8px">
-            <div class="msg u"><span class="mention">@AIコンシェルジュ</span> 議事録のテンプレある？</div>
-            <div class="msg b">はい！こちらのテンプレをどうぞ✨（このあと続けて質問OK）</div>
-          </div>
-        </div>
-      </div>
-      <!-- Chatwork -->
-      <div class="card">
-        <div class="plat-head plat-cw"><span class="logo c">C</span>Chatwork グループ</div>
-        <div class="plat-body">
-          <div class="step"><div class="num" style="background:var(--cw)">1</div><div><b>AIに「TO」を付けて呼ぶ</b><p>メッセージにマウスを合わせて「返信」/「TO」で AIコンシェルジュ を指定。または文章に <span class="kbd">AIQ</span> と入れる。</p></div></div>
-          <div class="step"><div class="num" style="background:var(--cw)">2</div><div><b>そのまま相談する</b><p>呼ばれたAIが返信します。</p></div></div>
-          <div class="chat cw" style="margin-top:8px">
-            <div class="msg u"><span class="mention">TO AIコンシェルジュ</span> 見積書の作り方教えて</div>
-            <div class="msg b">承知しました！手順は…（続けて相談できます）</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div class="callout warn">
       ⚠️ <b>「全員宛て（@All / TO ALL）」では反応しません。</b> かならず <b>AIコンシェルジュ本人を指名</b>して呼んでください（他の人への通知でAIが誤作動しないための設計です）。
     </div>
   </section>
 
-  <!-- グループ画像の違い -->
+  <!-- LINE グループ 詳細 -->
   <section>
-    <div class="sec-tag">STEP 4 ／ グループでの画像は要注意</div>
-    <h2>④ グループで画像を見てもらうには？</h2>
-    <p class="lead">画像の扱いは、グループだと LINE と Chatwork で変わります。ここだけ覚えてください。</p>
+    <div class="sec-tag" style="color:var(--line-c)">LINE グループの使い方</div>
+    <h2><span class="logo l" style="display:inline-grid">L</span> LINE グループ</h2>
+    <div class="card" style="margin-top:14px;border-top:4px solid var(--line-c)">
+      <div class="plat-body">
+        <div class="step"><div class="num" style="background:var(--line-c)">1</div><div><b>AIを @メンション で呼ぶ</b><p>入力欄で「@」→「AIコンシェルジュ」を選ぶ。または文章に <span class="kbd">AIQ</span> と入れて送る。</p></div></div>
+        <div class="step"><div class="num" style="background:var(--line-c)">2</div><div><b>そのまま相談する</b><p>一度呼べば、続けて会話できます。</p></div></div>
+        <div class="step"><div class="num" style="background:var(--line-c)">3</div><div><b>画像は「呼んでから3分以内」に送る 🖼</b><p>先に @メンション（または <span class="kbd">AIQ</span>）で呼び、<b>3分以内</b>に写真・スクショを送ってください。LINEは画像に宛先を付けられないため、この順番が必要です。</p></div></div>
+        <div class="chat line" style="margin-top:8px">
+          <div class="msg u"><span class="mention">@AIコンシェルジュ</span> この画面どうすれば？</div>
+          <div class="msg u">🖼 （3分以内に画像を送信）</div>
+          <div class="msg b">拝見しました！この画面では〇〇を押せばOKです✨</div>
+        </div>
+      </div>
+    </div>
+    <img class="illus" src="images/ai-guide-line-group.jpg" alt="LINEグループ：①AIを呼ぶ→②3分以内に画像を送る図解" loading="lazy" style="margin-top:14px">
+  </section>
+
+  <!-- Chatwork グループ 詳細 -->
+  <section>
+    <div class="sec-tag" style="color:var(--cw)">Chatwork グループの使い方</div>
+    <h2><span class="logo c" style="display:inline-grid">C</span> Chatwork グループ</h2>
+    <div class="card" style="margin-top:14px;border-top:4px solid var(--cw)">
+      <div class="plat-body">
+        <div class="step"><div class="num" style="background:var(--cw)">1</div><div><b>AIに「TO」を付けて呼ぶ</b><p>メッセージにマウスを合わせて「返信」/「TO」で「AIコンシェルジュ」を指定。または文章に <span class="kbd">AIQ</span> と入れる。</p></div></div>
+        <div class="step"><div class="num" style="background:var(--cw)">2</div><div><b>そのまま相談する</b><p>指名されたAIが返信します。</p></div></div>
+        <div class="step"><div class="num" style="background:var(--cw)">3</div><div><b>画像は「TO＋画像」を1通で送るだけ 🖼</b><p>Chatworkは1つのメッセージに宛先(TO)と画像を一緒に付けられます。<b>AIをTOで指名しながら画像を添付</b>して送れば、その場で読み取ります（LINEのようなタイマーは不要）。</p></div></div>
+        <div class="chat cw" style="margin-top:8px">
+          <div class="msg u"><span class="mention">TO AIコンシェルジュ</span> これ何のエラー？<br>🖼 （同じメッセージに画像を添付）</div>
+          <div class="msg b">確認しました！これは〇〇のエラーです。対処は…</div>
+        </div>
+      </div>
+    </div>
+    <img class="illus" src="images/ai-guide-chatwork-group.jpg" alt="Chatworkグループ：TOで指名＋画像を1通で送る図解" loading="lazy" style="margin-top:14px">
+    <div class="callout" style="border-left-color:var(--cw);background:var(--cw-soft)">
+      💡 <b>ポイント：</b>Chatworkはグループでも、<b>TOでAIを指名した1通</b>なら画像を読めます。指名のない画像には反応しません（誤反応・情報の取り違え防止）。
+    </div>
+  </section>
+
+  <!-- 早見表 -->
+  <section>
+    <div class="sec-tag">早見表</div>
+    <h2>④ 画像の送り方 まとめ</h2>
+    <p class="lead">「どこで・どう送れば画像を読んでもらえるか」の早見表です。</p>
     <div class="card pad scroll" style="margin-top:14px">
       <table>
         <thead>
@@ -191,23 +203,12 @@
         <tbody>
           <tr><td class="h">1対1トーク</td><td class="yes">○ そのまま送ればOK</td><td class="yes">○ そのまま送ればOK</td></tr>
           <tr><td class="h">グループ</td>
-            <td><span class="yes">○</span><br><span class="cond">AIを呼んでから3分以内に画像を送る</span></td>
-            <td><span class="no">✕</span><br><span class="cond">グループでは画像は読めません</span></td></tr>
+            <td><span class="yes">○</span><br><span class="cond">呼んでから3分以内に画像</span></td>
+            <td><span class="yes">○</span><br><span class="cond">TOで指名＋画像を1通で</span></td></tr>
         </tbody>
       </table>
     </div>
-    <div class="grid2" style="margin-top:14px">
-      <div class="callout" style="border-left-color:var(--line-c);background:var(--line-soft)">
-        <b>LINEグループで画像を見てほしいとき</b><br>
-        ①まず <span class="mention">@AIコンシェルジュ</span> と呼ぶ → ②<b>3分以内</b>に画像を送る。<br>
-        <span class="note">呼ばずにいきなり画像を送っても反応しません（勝手に反応しない設計）。</span>
-      </div>
-      <div class="callout" style="border-left-color:var(--cw);background:var(--cw-soft)">
-        <b>Chatworkで画像を見てほしいとき</b><br>
-        グループではなく、<b>AIとの1対1トーク（ダイレクトチャット）</b>に画像を送ってください。<br>
-        <span class="note">グループの添付画像はAIが読み取れません。</span>
-      </div>
-    </div>
+    <p class="note" style="margin-top:8px">※ どちらも「AIを指名して呼んでいない画像」には反応しません（勝手に読まない設計）。全員宛て（@All / TO ALL）はNGです。</p>
   </section>
 
   <!-- 反応しないとき -->
